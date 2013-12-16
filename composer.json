@@ -1,6 +1,6 @@
 {
 	"name": "ellipsesynergie/laravel4-backend-demo",
-	"description": "",
+	"description": "A Laravel 4 backend demo including best practices like repository, validator and event handler.",
 	"keywords": ["backend", "framework", "laravel"],
 	"license": "MIT",
 	"require": {
