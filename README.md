@@ -1,6 +1,23 @@
 ## Laravel 4 REST api demo
 
-A Laravel 4 backend demo including best practices like repository, validator and event handler.
+This is a demo for a REST api project using Laravel 4 and including best practices like repositories, validators and events handler.
+
+Note: It can be also used to start a new project.
+
+## Installation
+
+First, create a new project
+
+```php
+composer create-project ellispesynergie/laravel4-backend-demo my-new-api
+```
+
+And than, rename directory ```Acme``` to something related to your project.
+
+## Server requirements
+
+* PHP >= 5.3.7
+* MCrypt PHP Extension
 
 ## Documentation
 
