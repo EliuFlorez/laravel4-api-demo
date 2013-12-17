@@ -1,7 +1,7 @@
 <?php
 namespace App\Transformer;
 
-use App\Repository\Checkin;
+use App\Repository\CheckinInterface;
 use League\Fractal\TransformerAbstract;
 
 class CheckinTransformer extends TransformerAbstract
@@ -21,7 +21,7 @@ class CheckinTransformer extends TransformerAbstract
 	 *
 	 * @return array
 	 */
-	public function transform(Checkin $checkin)
+	public function transform(CheckinInterface $checkin)
 	{
 		return [
 			'id' => (int) $checkin->id,
@@ -34,7 +34,7 @@ class CheckinTransformer extends TransformerAbstract
 	 *
 	 * @return League\Fractal\Resource\Item
 	 */
-	public function embedPlace(Checkin $checkin)
+	public function embedPlace(CheckinInterface $checkin)
 	{
 		$place = $checkin->place;
 		

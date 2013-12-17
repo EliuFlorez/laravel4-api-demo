@@ -1,20 +1,25 @@
 <?php
 use App\Transformer\UserTransformer;
-use App\Repository\User;
+use App\Repository\UserInterface;
 
 class UserController extends Controller
 {
 
+	public function __construct(UserInterface $user)
+	{
+		$this->user = $user;
+	}
+
 	public function index()
 	{
-		$users = User::take(10)->get();
+		$users = $this->user->take(10)->get();
 		
 		return Response::api()->withCollection($users, new UserTransformer());
 	}
 
 	public function show($id)
 	{
-		$user = User::find($id);
+		$user = $this->user->find($id);
 		
 		return Response::api()->respondWithItem($user, new UserTransformer());
 	}

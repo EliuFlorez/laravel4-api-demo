@@ -2,7 +2,7 @@
 
 namespace App\Transformer;
 
-use App\Repository\User;
+use App\Repository\UserInterface;
 use League\Fractal\TransformerAbstract;
 
 class UserTransformer extends TransformerAbstract
@@ -17,7 +17,7 @@ class UserTransformer extends TransformerAbstract
 	 *
 	 * @return array
 	 */
-	public function transform(User $user)
+	public function transform(UserInterface $user)
 	{
 		return [
 			'id' => (int) $user->id,
@@ -30,7 +30,7 @@ class UserTransformer extends TransformerAbstract
 		];
 	}
 
-	public function links(User $user, $url, $method)
+	public function links(UserInterface $user, $url, $method)
 	{
 		return [
 			'settings' => $this->addLink("{$url}/{$this->id}/settings", 'GET')
@@ -42,7 +42,7 @@ class UserTransformer extends TransformerAbstract
 	 *
 	 * @return League\Fractal\Resource\Collection
 	 */
-	public function embedCheckins(User $user)
+	public function embedCheckins(UserInterface $user)
 	{
 		$checkins = $user->checkins;
 		

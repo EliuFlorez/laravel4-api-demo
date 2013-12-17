@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Auth\UserInterface;
+use Illuminate\Auth\UserInterface as AuthUserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use App\Repository\UserInterface;
 
-class User extends Model implements UserInterface, RemindableInterface
+class User extends Model implements UserInterface, AuthUserInterface, RemindableInterface
 {
 
 	/**
@@ -32,7 +33,7 @@ class User extends Model implements UserInterface, RemindableInterface
 	 */
 	public function checkins()
 	{
-		return $this->hasMany('App\Repository\Checkin');
+		return $this->hasMany('App\Repository\Eloquent\Checkin');
 	}
 
 	/**

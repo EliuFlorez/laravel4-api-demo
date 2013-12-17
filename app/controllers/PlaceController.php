@@ -1,21 +1,26 @@
 <?php
-
 use App\Transformer\PlaceTransformer;
-use App\Repository\Place;
+use App\Repository\PlaceInterface;
 
 class PlaceController extends Controller
 {
-    public function index()
-    {
-        $places = Place::take(10)->get();
 
-        return Response::api()->withCollection($places, new PlaceTransformer);
-    }
+	public function __construct(PlaceInterface $place)
+	{
+		$this->place = $place;
+	}
 
-    public function show($id)
-    {
-        $place = Place::find($id);
+	public function index()
+	{
+		$places = $this->place->take(10)->get();
+		
+		return Response::api()->withCollection($places, new PlaceTransformer());
+	}
 
-        return Response::api()->withItem($place, new PlaceTransformer);
-    }
+	public function show($id)
+	{
+		$place = $this->place->find($id);
+		
+		return Response::api()->withItem($place, new PlaceTransformer());
+	}
 }

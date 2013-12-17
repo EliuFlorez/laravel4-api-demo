@@ -1,9 +1,10 @@
 <?php
-namespace App\Repository;
+namespace App\Repository\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Repository\CheckinInterface;
 
-class Checkin extends Eloquent
+class Checkin extends Model implements CheckinInterface
 {
 
 	/**
@@ -20,7 +21,7 @@ class Checkin extends Eloquent
 	 */
 	public function user()
 	{
-		return $this->belongsTo('App\Repository\User');
+		return $this->belongsTo('App\Repository\Eloquent\User');
 	}
 
 	/**
@@ -30,6 +31,6 @@ class Checkin extends Eloquent
 	 */
 	public function place()
 	{
-		return $this->belongsTo('App\Repository\Place');
+		return $this->belongsTo('App\Repository\Eloquent\Place');
 	}
 }

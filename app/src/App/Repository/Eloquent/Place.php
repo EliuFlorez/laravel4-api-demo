@@ -1,9 +1,10 @@
 <?php
-namespace App\Repository;
+namespace App\Repository\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Repository\PlaceInterface;
 
-class Place extends Model
+class Place extends Model implements PlaceInterface
 {
 
 	/**
@@ -20,6 +21,6 @@ class Place extends Model
 	 */
 	public function checkins()
 	{
-		return $this->hasMany('App\Repository\Checkin');
+		return $this->hasMany('App\Repository\Eloquent\Checkin');
 	}
 }
