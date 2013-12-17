@@ -12,8 +12,8 @@
 */
 Route::get('/', 'IndexController@index');
 
-Route::get('/users', 'UserController@index');
-Route::get('/users/{id}', 'UserController@show');
+Route::get('/users', array('as' => 'users.index', 'uses' => 'UserController@index'));
+Route::get('/users/{user}', array('as' => 'users.show', 'uses' => 'UserController@show'));
 
-Route::get('/places', 'PlaceController@index');
-Route::get('/places/{id}', 'PlaceController@show');
+Route::get('/places', array('as' => 'places.index', 'uses' => 'PlaceController@index'));
+Route::get('/places/{user}', array('as' => 'places.show', 'uses' => 'PlaceController@show'));
