@@ -106,6 +106,13 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+		
+		'App\Handler\HandlerServiceProvider',
+		'App\Http\HttpServiceProvider',
+		'App\Repository\RepositoryServiceProvider',
+		'App\Resource\ResourceServiceProvider',
+		'App\Transformer\TransformerServiceProvider',
+		'App\Validator\ValidatorServiceProvider'
 
 	),
 
