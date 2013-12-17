@@ -3,6 +3,9 @@ namespace App\Http;
 
 use League\Fractal\Resource\Collection;
 use League\Fractal\Resource\Item;
+use League\Fractal\Manager;
+use Input;
+use Response as IlluminateResponse;
 
 /**
  *
@@ -11,12 +14,25 @@ use League\Fractal\Resource\Item;
 class Response
 {
 
+	public function __construct(Manager $fractal)
+	{
+		$this->fractal = $fractal;
+		
+		// Are we going to try and include embedded data?
+		$this->fractal->setRequestedScopes(explode(',', Input::get('include')));
+	}
+
+	/**
+	 * Response status code
+	 *
+	 * @var int
+	 */
 	protected $statusCode = 200;
 
 	/**
 	 * Getter for statusCode
 	 *
-	 * @return mixed
+	 * @return int
 	 */
 	public function getStatusCode()
 	{
@@ -37,26 +53,47 @@ class Response
 		return $this;
 	}
 
-	protected function respondWithItem($item, $callback)
+	/**
+	 * Response for one item
+	 *
+	 * @param mixed $item        	
+	 * @param mixed $callback        	
+	 * @return \Illuminate\Http\Response
+	 */
+	public function withItem($item, $callback)
 	{
 		$resource = new Item($item, $callback);
 		
 		$rootScope = $this->fractal->createData($resource);
 		
-		return $this->respondWithArray($rootScope->toArray());
+		return $this->withArray($rootScope->toArray());
 	}
 
-	protected function respondWithCollection($collection, $callback)
+	/**
+	 * Response for collection of items
+	 *
+	 * @param mixed $item        	
+	 * @param mixed $callback        	
+	 * @return \Illuminate\Http\Response
+	 */
+	public function withCollection($collection, $callback)
 	{
 		$resource = new Collection($collection, $callback);
 		
 		$rootScope = $this->fractal->createData($resource);
 		
-		return $this->respondWithArray($rootScope->toArray());
+		return $this->withArray($rootScope->toArray());
 	}
 
-	protected function respondWithArray(array $array, array $headers = array())
+	/**
+	 * Response for array
+	 *
+	 * @param mixed $item        	
+	 * @param mixed $callback        	
+	 * @return \Illuminate\Http\Response
+	 */
+	public function withArray(array $array, array $headers = array())
 	{
-		return Response::json($array, $this->statusCode, $headers);
+		return IlluminateResponse::json($array, $this->statusCode, $headers);
 	}
 }

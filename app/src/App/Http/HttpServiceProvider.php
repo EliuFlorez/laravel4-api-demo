@@ -2,8 +2,8 @@
 namespace App\Http;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Config;
-use Event;
+use App\Http\Response;
+use League\Fractal\Manager;
 
 /**
  * HttpServiceProvider service provider
@@ -25,6 +25,12 @@ class HttpServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		//
+		// Register response macro
+		\Response::macro('api', function ()
+		{
+			
+			// Return the Reponse object
+			return new Response(new Manager);
+		});
 	}
 }
