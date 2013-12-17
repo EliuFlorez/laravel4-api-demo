@@ -25,6 +25,8 @@ class User extends Model implements UserInterface, AuthUserInterface, Remindable
 	protected $hidden = array(
 		'password'
 	);
+	
+	protected $fillable = array('name', 'email');
 
 	/**
 	 * Relationship: Checkins

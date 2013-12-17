@@ -18,6 +18,6 @@ class User implements FinderInterface
 	
 	public function findForIndex()
 	{
-		return $this->user->take(10)->get();
+		return $this->user->take(200)->get();
 	}
 }
