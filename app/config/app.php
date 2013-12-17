@@ -111,7 +111,6 @@ return array(
 		'App\Http\HttpServiceProvider',
 		'App\Repository\RepositoryServiceProvider',
 		'App\Resource\ResourceServiceProvider',
-		'App\Transformer\TransformerServiceProvider',
 		'App\Validator\ValidatorServiceProvider'
 
 	),

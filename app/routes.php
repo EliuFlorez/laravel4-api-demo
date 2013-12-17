@@ -10,6 +10,7 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('/', 'IndexController@index');
 
 Route::get('/users', 'UserController@index');
 Route::get('/users/{id}', 'UserController@show');

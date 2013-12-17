@@ -14,13 +14,15 @@ use Response as IlluminateResponse;
 class Response
 {
 
-	public function __construct(Manager $fractal)
-	{
-		$this->fractal = $fractal;
-		
-		// Are we going to try and include embedded data?
-		$this->fractal->setRequestedScopes(explode(',', Input::get('include')));
-	}
+	const CODE_WRONG_ARGS = 'GEN-WRONG-ARGS';
+
+	const CODE_NOT_FOUND = 'GEN-NOT-FOUNDD';
+
+	const CODE_INTERNAL_ERROR = 'GEN-INTERNAL-ERROR';
+
+	const CODE_UNAUTHORIZED = 'GEN-UNAUTHORIZED';
+
+	const CODE_FORBIDDEN = 'GEN-FORBIDDEN';
 
 	/**
 	 * Response status code
@@ -28,6 +30,26 @@ class Response
 	 * @var int
 	 */
 	protected $statusCode = 200;
+
+	/**
+	 * Fractal manager
+	 *
+	 * @var League\Fractal\Manager
+	 */
+	protected $fractal;
+
+	/**
+	 * Constructor
+	 *
+	 * @param League\Fractal\Manager $fractal        	
+	 */
+	public function __construct(Manager $fractal)
+	{
+		$this->fractal = $fractal;
+		
+		// Are we going to try and include embedded data?
+		$this->fractal->setRequestedScopes(explode(',', Input::get('include')));
+	}
 
 	/**
 	 * Getter for statusCode
@@ -95,5 +117,82 @@ class Response
 	public function withArray(array $array, array $headers = array())
 	{
 		return IlluminateResponse::json($array, $this->statusCode, $headers);
+	}
+
+	/**
+	 * Generix reponse with error
+	 *
+	 * @param string $message        	
+	 * @param string $errorCode        	
+	 */
+	protected function withError($message, $errorCode)
+	{
+		return $this->withArray([
+			'error' => [
+				'code' => $errorCode,
+				'http_code' => $this->statusCode,
+				'message' => $message
+			]
+		]);
+	}
+
+	/**
+	 * Generates a Response with a 403 HTTP header and a given message.
+	 *
+	 * @param string $message        	
+	 * @return Response
+	 *
+	 */
+	public function errorForbidden($message = 'Forbidden')
+	{
+		return $this->setStatusCode(403)->withError($message, self::CODE_FORBIDDEN);
+	}
+
+	/**
+	 * Generates a Response with a 500 HTTP header and a given message.
+	 *
+	 * @param string $message        	
+	 * @return Response
+	 *
+	 */
+	public function errorInternalError($message = 'Internal Error')
+	{
+		return $this->setStatusCode(500)->withError($message, self::CODE_INTERNAL_ERROR);
+	}
+
+	/**
+	 * Generates a Response with a 404 HTTP header and a given message.
+	 *
+	 * @param string $message        	
+	 * @return Response
+	 *
+	 */
+	public function errorNotFound($message = 'Resource Not Found')
+	{
+		return $this->setStatusCode(404)->withError($message, self::CODE_NOT_FOUND);
+	}
+
+	/**
+	 * Generates a Response with a 401 HTTP header and a given message.
+	 *
+	 * @param string $message        	
+	 * @return Response
+	 *
+	 */
+	public function errorUnauthorized($message = 'Unauthorized')
+	{
+		return $this->setStatusCode(401)->withError($message, self::CODE_UNAUTHORIZED);
+	}
+
+	/**
+	 * Generates a Response with a 400 HTTP header and a given message.
+	 *
+	 * @param string $message        	
+	 * @return Response
+	 *
+	 */
+	public function errorWrongArgs($message = 'Wrong Arguments')
+	{
+		return $this->setStatusCode(400)->withError($message, self::CODE_WRONG_ARGS);
 	}
 }
