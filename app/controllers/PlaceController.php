@@ -1,9 +1,11 @@
 <?php
+use App\Transformer\PlaceTransformer;
 
 class PlaceController extends BaseController
 {
-
-	protected $repository = 'App\Repository\PlaceInterface';
-
-	protected static $transformer = 'App\Transformer\PlaceTransformer';
+	protected function boot()
+	{
+		$this->finder = Finder::place();
+		$this->transformer = new PlaceTransformer();
+	}
 }

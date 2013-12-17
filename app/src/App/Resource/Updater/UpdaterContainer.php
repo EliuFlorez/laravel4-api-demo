@@ -1,5 +1,18 @@
-<?php namespace App\Resource\Updater;
+<?php
+namespace App\Resource\Updater;
 
-class UpdaterContainer {
-	
+use App\Resource\Updater\User;
+
+class UpdaterContainer
+{
+
+	public function __construct(User $user)
+	{
+		$this->user = $user;
+	}
+
+	public function user()
+	{
+		return $this->user;
+	}
 }

@@ -8,37 +8,42 @@ class BaseController extends Controller
 	 *
 	 * @var mixed
 	 */
-	protected $repository;
+	protected $finder;
 
 	/**
 	 * The resource transformer
 	 *
 	 * @var string
 	 */
-	protected static $transformer;
+	protected $transformer;
 
 	/**
 	 * Base controller constructor
 	 */
 	public function __construct()
 	{
-		// If the repository is defined
-		if ($this->repository) {
-			$this->repository = App::make($this->repository);
-		}
+		$this->boot();
+	}
+
+	/**
+	 * Boot the controller
+	 */
+	protected function boot()
+	{
+		//
 	}
 
 	public function index()
 	{
-		$collection = $this->repository->take(10)->get();
+		$collection = $this->finder->findForIndex();
 		
-		return Response::api()->withCollection($collection, App::make(static::$transformer));
+		return Response::api()->withCollection($collection, $this->transformer);
 	}
 
 	public function show($id)
 	{
-		$item = $this->repository->find($id);
+		$item = $this->finder->find($id);
 		
-		return Response::api()->withItem($item, App::make(static::$transformer));
+		return Response::api()->withItem($item, $this->transformer);
 	}
 }
