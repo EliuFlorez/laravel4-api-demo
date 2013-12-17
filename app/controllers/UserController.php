@@ -2,7 +2,7 @@
 use App\Transformer\UserTransformer;
 use App\Repository\UserInterface;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
 
 	public function __construct(UserInterface $user)
@@ -21,6 +21,6 @@ class UserController extends Controller
 	{
 		$user = $this->user->find($id);
 		
-		return Response::api()->respondWithItem($user, new UserTransformer());
+		return Response::api()->withItem($user, new UserTransformer());
 	}
 }

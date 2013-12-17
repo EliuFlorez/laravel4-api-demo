@@ -2,7 +2,7 @@
 use App\Transformer\PlaceTransformer;
 use App\Repository\PlaceInterface;
 
-class PlaceController extends Controller
+class PlaceController extends BaseController
 {
 
 	public function __construct(PlaceInterface $place)
@@ -20,6 +20,10 @@ class PlaceController extends Controller
 	public function show($id)
 	{
 		$place = $this->place->find($id);
+		
+		if(! $place){
+			return Response::api()->errorNotFound();
+		}
 		
 		return Response::api()->withItem($place, new PlaceTransformer());
 	}

@@ -24,6 +24,8 @@ class Response
 
 	const CODE_FORBIDDEN = 'GEN-FORBIDDEN';
 
+	const CODE_GONE = 'GEN-GONE';
+
 	/**
 	 * Response status code
 	 *
@@ -194,5 +196,17 @@ class Response
 	public function errorWrongArgs($message = 'Wrong Arguments')
 	{
 		return $this->setStatusCode(400)->withError($message, self::CODE_WRONG_ARGS);
+	}
+
+	/**
+	 * Generates a Response with a 410 HTTP header and a given message.
+	 *
+	 * @param string $message        	
+	 * @return Response
+	 *
+	 */
+	public function errorGone($message = 'Resource No Longer Available')
+	{
+		return $this->setStatusCode(410)->withError($message, self::CODE_GONE);
 	}
 }
