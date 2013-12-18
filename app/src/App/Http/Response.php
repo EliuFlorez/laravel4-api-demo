@@ -67,8 +67,8 @@ class Response
 	 * Setter for statusCode
 	 *
 	 * @param int $statusCode
-	 *        	Value to set
-	 *        	
+	 * Value to set
+	 * 
 	 * @return self
 	 */
 	public function setStatusCode($statusCode)
@@ -135,7 +135,9 @@ class Response
 				'http_code' => $this->statusCode,
 				'message' => $message
 			]
-		]);
+		])
+		
+		;
 	}
 
 	/**
@@ -208,5 +210,18 @@ class Response
 	public function errorGone($message = 'Resource No Longer Available')
 	{
 		return $this->setStatusCode(410)->withError($message, self::CODE_GONE);
+	}
+
+	/**
+	 * Generates a Response with a 400 HTTP header and a given message from validator
+	 *
+	 * @param Validator $validator        	
+	 * @return Response
+	 *
+	 */
+	public function errorWrongArgsValidator($validator)
+	{
+		return $this->errorWrongArgs(json_encode($validator->messages()
+			->all()));
 	}
 }

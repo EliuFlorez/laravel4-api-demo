@@ -2,6 +2,7 @@
 namespace App\Handler;
 
 use Creater;
+use Updater;
 
 
 class UserEventHandler
@@ -14,6 +15,7 @@ class UserEventHandler
 	public function subscribe($events)
 	{
 		$events->listen('user.create', 'App\Handler\UserEventHandler@onUserCreate');
+		$events->listen('user.update', 'App\Handler\UserEventHandler@onUserUpdate');
 	}
 
 	/**
@@ -22,5 +24,13 @@ class UserEventHandler
 	public function onUserCreate($data)
 	{
 		return Creater::user()->create($data);
+	}
+
+	/**
+	 * On user update listener
+	 */
+	public function onUserUpdate($id, $data)
+	{
+		return Updater::user()->update($id, $data);
 	}
 }

@@ -21,9 +21,22 @@ class UserController extends BaseController
 			return Response::api()->withItem($events[0], $this->transformer);
 		
 		} catch (ValidatorException $e) {
-			return Response::api()->errorWrongArgs(json_encode($e->getValidator()
-				->messages()
-				->all()));
+			return Response::api()->errorWrongArgsValidator($e->getValidator());
+		}
+	}
+
+	public function update($id)
+	{
+		try {
+			$events = Event::fire('user.update', array(
+				$id,
+				Input::all()
+			));
+			
+			return Response::api()->withItem($events[0], $this->transformer);
+		
+		} catch (ValidatorException $e) {
+			return Response::api()->errorWrongArgsValidator($e->getValidator());
 		}
 	}
 }

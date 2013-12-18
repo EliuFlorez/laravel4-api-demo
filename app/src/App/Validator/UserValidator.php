@@ -10,5 +10,8 @@ class UserValidator extends AbstractValidator
 		'email' => 'required',
 	);
 
-	protected static $rulesForUpdate;
+	protected static $rulesForUpdate = array(
+		'name' => 'required',
+		'email' => 'required',
+	);
 }
