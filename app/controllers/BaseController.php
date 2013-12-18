@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Validator\Exceptions\ValidatorException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -20,7 +19,7 @@ class BaseController extends Controller
 	 * @var string
 	 */
 	protected $transformer;
-	
+
 	/**
 	 * The even namespace of the resource
 	 * 
@@ -53,9 +52,14 @@ class BaseController extends Controller
 
 	public function show($id)
 	{
-		$item = $this->finder->find($id);
+		try {
+			$item = $this->finder->find($id);
+			
+			return Response::api()->withItem($item, $this->transformer);
 		
-		return Response::api()->withItem($item, $this->transformer);
+		} catch (ModelNotFoundException $e) {
+			return Response::api()->errorNotFound();
+		}
 	}
 
 	public function store()

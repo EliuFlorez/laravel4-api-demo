@@ -4,6 +4,7 @@ namespace App\Handler;
 use Creater;
 use Updater;
 use Destroyer;
+use Caching;
 
 class UserEventHandler
 {
@@ -25,7 +26,14 @@ class UserEventHandler
 	 */
 	public function onUserCreate($data)
 	{
-		return Creater::user()->create($data);
+		//Create the user
+		$user = Creater::user()->create($data);
+		
+		//The user have changed so, notify the caching service
+		Caching::user()->change($user->id);
+		
+		//Return the user
+		return $user;
 	}
 
 	/**
@@ -33,7 +41,15 @@ class UserEventHandler
 	 */
 	public function onUserUpdate($id, $data)
 	{
-		return Updater::user()->update($id, $data);
+		
+		//Update the user
+		$user =  Updater::user()->update($id, $data);
+		
+		//The user have changed so, notify the caching service
+		Caching::user()->change($user->id);
+		
+		//Return the user
+		return $user;
 	}
 
 	/**
@@ -41,6 +57,13 @@ class UserEventHandler
 	 */
 	public function onUserDestroy($id)
 	{
-		return Destroyer::user()->destroy($id);
+		//Destroy the user
+		$user =  Destroyer::user()->destroy($id);
+		
+		//The user have changed so, notify the caching service
+		Caching::user()->change($user->id);
+		
+		//Return the user
+		return $user;
 	}
 }

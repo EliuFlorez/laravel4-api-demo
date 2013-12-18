@@ -2,4 +2,5 @@
 
 interface DestroyerInterface {
 	
+	public function destroy($id);
 }

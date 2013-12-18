@@ -2,4 +2,6 @@
 
 interface CreaterInterface {
 	
+	public function create($data);
+	
 }

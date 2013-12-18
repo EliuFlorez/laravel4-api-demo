@@ -13,11 +13,11 @@ class User implements FinderInterface
 	}
 	
 	public function find($id){
-		return $this->user->find($id);
+		return $this->user->remember(10, 'user.' . $id)->findOrFail($id);
 	}
 	
 	public function findForIndex()
 	{
-		return $this->user->take(200)->get();
+		return $this->user->remember(10, 'users')->take(200)->get();
 	}
 }

@@ -6,6 +6,7 @@ use App\Resource\Finder\FinderContainer;
 use App\Resource\Destroyer\DestroyerContainer;
 use App\Resource\Updater\UpdaterContainer;
 use App\Resource\Creater\CreaterContainer;
+use App\Resource\Caching\CachingContainer;
 
 /**
  * ResourceServiceProvider service provider
@@ -31,6 +32,7 @@ class ResourceServiceProvider extends ServiceProvider
 		$this->registerDestroyer();
 		$this->registerUpdater();
 		$this->registerCreater();
+		$this->registerCaching();
 	}
 
 	public function registerFinder()
@@ -51,5 +53,10 @@ class ResourceServiceProvider extends ServiceProvider
 	public function registerCreater()
 	{
 		$this->app['creater'] = new CreaterContainer(new Creater\User);
+	}
+
+	public function registerCaching()
+	{
+		$this->app['caching'] = new CachingContainer(new Caching\User);
 	}
 }

@@ -183,6 +183,7 @@ return array(
 		'Updater'         => 'App\Facade\Updater',
 		'Destroyer'       => 'App\Facade\Destroyer',
 		'Finder'          => 'App\Facade\Finder',
+		'Caching'         => 'App\Facade\Caching',
 	),
 
 );
