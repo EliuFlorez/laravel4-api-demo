@@ -3,10 +3,11 @@ namespace App\Handler;
 
 use Creater;
 use Updater;
-
+use Destroyer;
 
 class UserEventHandler
 {
+
 	/**
 	 * Subscribe to events
 	 *
@@ -16,6 +17,7 @@ class UserEventHandler
 	{
 		$events->listen('user.create', 'App\Handler\UserEventHandler@onUserCreate');
 		$events->listen('user.update', 'App\Handler\UserEventHandler@onUserUpdate');
+		$events->listen('user.destroy', 'App\Handler\UserEventHandler@onUserDestroy');
 	}
 
 	/**
@@ -32,5 +34,13 @@ class UserEventHandler
 	public function onUserUpdate($id, $data)
 	{
 		return Updater::user()->update($id, $data);
+	}
+
+	/**
+	 * On user destroy listener
+	 */
+	public function onUserDestroy($id)
+	{
+		return Destroyer::user()->destroy($id);
 	}
 }
