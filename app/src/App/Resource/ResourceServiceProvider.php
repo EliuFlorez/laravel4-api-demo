@@ -37,26 +37,26 @@ class ResourceServiceProvider extends ServiceProvider
 
 	public function registerFinder()
 	{
-		$this->app['finder'] = new FinderContainer(new Finder\User, new Finder\Place);
+		$this->app['finder'] = new FinderContainer(new Finder\UserFinder(), new Finder\PlaceFinder());
 	}
 
 	public function registerDestroyer()
 	{
-		$this->app['destroyer'] = new DestroyerContainer(new Destroyer\User);
+		$this->app['destroyer'] = new DestroyerContainer(new Destroyer\UserDestroyer());
 	}
 
 	public function registerUpdater()
 	{
-		$this->app['updater'] = new UpdaterContainer(new Updater\User);
+		$this->app['updater'] = new UpdaterContainer(new Updater\UserUpdater());
 	}
 
 	public function registerCreater()
 	{
-		$this->app['creater'] = new CreaterContainer(new Creater\User);
+		$this->app['creater'] = new CreaterContainer(new Creater\UserCreater());
 	}
 
 	public function registerCaching()
 	{
-		$this->app['caching'] = new CachingContainer(new Caching\User);
+		$this->app['caching'] = new CachingContainer(new Caching\UserCaching());
 	}
 }

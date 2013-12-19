@@ -4,7 +4,7 @@ namespace App\Resource\Finder;
 
 use App;
 
-class User implements FinderInterface
+class UserFinder implements FinderInterface
 {
 	
 	public function __construct()

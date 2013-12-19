@@ -4,7 +4,7 @@ namespace App\Resource\Destroyer;
 
 use App;
 
-class User implements DestroyerInterface
+class UserDestroyer implements DestroyerInterface
 {
 
 	public function __construct()

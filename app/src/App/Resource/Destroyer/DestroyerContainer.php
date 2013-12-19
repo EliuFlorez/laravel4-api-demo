@@ -1,12 +1,12 @@
 <?php
 namespace App\Resource\Destroyer;
 
-use App\Resource\Destroyer\User;
+use App\Resource\Destroyer\UserDestroyer;
 
 class DestroyerContainer
 {
 
-	public function __construct(User $user)
+	public function __construct(UserDestroyer $user)
 	{
 		$this->user = $user;
 	}

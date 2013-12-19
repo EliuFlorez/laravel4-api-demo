@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Resource\Updater;
+namespace App\Resource\Creater;
 
 use App;
 
-class User implements UpdaterInterface
+class UserCreater implements CreaterInterface
 {
 
 	public function __construct()
@@ -13,14 +13,12 @@ class User implements UpdaterInterface
 		$this->validator = App::make('App\Validator\UserValidator');
 	}
 
-	public function update($id, $input)
+	public function create($data)
 	{
+		$this->validator->isValidForCreation($data);
 		
-		$user = $this->user->findOrFail($id);
-		
-		$this->validator->isValidForUpdate($input);
-		
-		$user->fill($input);
+		$user = $this->user;
+		$user->fill($data);
 		$user->save();
 		
 		return $user;

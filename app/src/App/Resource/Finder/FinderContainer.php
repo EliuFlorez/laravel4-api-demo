@@ -1,13 +1,13 @@
 <?php
 namespace App\Resource\Finder;
 
-use App\Resource\Finder\User;
-use App\Resource\Finder\Place;
+use App\Resource\Finder\UserFinder;
+use App\Resource\Finder\PlaceFinder;
 
 class FinderContainer
 {
 
-	public function __construct(User $user, Place $place)
+	public function __construct(UserFinder $user, PlaceFinder $place)
 	{
 		$this->user = $user;
 		$this->place = $place;

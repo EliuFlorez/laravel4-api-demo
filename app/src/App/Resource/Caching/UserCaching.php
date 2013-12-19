@@ -5,7 +5,7 @@ namespace App\Resource\Caching;
 use App;
 use Cache;
 
-class User implements CachingInterface
+class UserCaching implements CachingInterface
 {
 
 	public function change($id = null)
