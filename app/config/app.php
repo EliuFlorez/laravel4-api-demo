@@ -110,7 +110,6 @@ return array(
 		'App\Handler\HandlerServiceProvider',
 		'App\Http\HttpServiceProvider',
 		'App\Repository\RepositoryServiceProvider',
-		'App\Resource\ResourceServiceProvider',
 		'App\Validator\ValidatorServiceProvider'
 
 	),
