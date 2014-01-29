@@ -25,6 +25,6 @@ class HandlerServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		//
+		Event::subscribe('App\Handler\UserEventHandler');
 	}
 }

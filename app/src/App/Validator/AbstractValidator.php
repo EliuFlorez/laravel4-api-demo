@@ -1,99 +1,35 @@
 <?php
 namespace App\Validator;
 
+use Validator;
+use App\Validator\Exceptions\ValidatorException;
+
 /**
- * Validation service, extend this class to create a new validation service for your model
- * 
- * Base one example http://jasonlewis.me/article/laravel-advanced-validation
- *
  * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 abstract class AbstractValidator
 {
 
-	/**
-	 * Validator object.
-	 *
-	 * @var object
-	 */
-	protected $validator;
+	protected static $rulesForCreation;
 
-	/**
-	 * Array of extra data.
-	 *
-	 * @var array
-	 */
-	protected $data;
+	protected static $rulesForUpdate;
 
-	/**
-	 * Array of validating input.
-	 *
-	 * @var array
-	 */
-	protected $input;
-
-	/**
-	 * Array of rules.
-	 *
-	 * @var array
-	 */
-	public $rules = array();
-
-	/**
-	 * Array of messages.
-	 *
-	 * @var array
-	 */
-	public $messages = array();
-
-	/**
-	 * Create a new validation service instance.
-	 *
-	 * @param array $input        	
-	 * @return void
-	 */
-	public function __construct($input, $validator)
+	public function validate($input, $rules)
 	{
-		$this->input = $input;
-		$this->validatorFactory = $validator;
-	}
-
-	/**
-	 * Validates the input.
-	 *
-	 * @throws ValidateException
-	 * @return void
-	 */
-	protected function validate()
-	{
-		//Create the validator
-		$this->validator = $this->validatorFactory->make($this->input, $this->rules, $this->messages);
+		$validator = Validator::make($input, $rules);
 		
-		//If the validator fails, trhow a exception
-		if ($this->validator->fails()) {
-			throw new ValidateException(get_called_class(), $this->validator);
-		} else {
-			return true;
+		if ($validator->fails()) {
+			throw new ValidatorException($validator);
 		}
 	}
 
-	/**
-	 * Default validation for before creating
-	 * 
-	 * @throws ValidateException
-	 */
-	public function creating()
+	public function isValidForCreation($input)
 	{
-		$this->validate();
+		$this->validate($input, static::$rulesForCreation);
 	}
 
-	/**
-	 * Default validation for before updating
-	 *
-	 * @throws ValidateException
-	 */
-	public function updating()
+	public function isValidForUpdate($input)
 	{
-		$this->validate();
+		$this->validate($input, static::$rulesForUpdate);
 	}
 }

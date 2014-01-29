@@ -177,8 +177,12 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Finder'          => 'App\Facade\Finder'
-
+	
+		'Creater'         => 'App\Facade\Creater',
+		'Updater'         => 'App\Facade\Updater',
+		'Destroyer'       => 'App\Facade\Destroyer',
+		'Finder'          => 'App\Facade\Finder',
+		'Caching'         => 'App\Facade\Caching',
 	),
 
 );
