@@ -12,8 +12,6 @@ First, create a new project
 composer create-project ellispesynergie/laravel4-backend-demo my-new-api
 ```
 
-And than, rename directory ```Acme``` to something related to your project.
-
 ## Server requirements
 
 * PHP >= 5.3.7
@@ -25,3 +23,4 @@ And than, rename directory ```Acme``` to something related to your project.
 * Learn everything about Laravel at [Laracast](http://laracast.com).
 * [Build APIs You Won't Hate](https://leanpub.com/build-apis-you-wont-hate) by @philsturgeon
 * [Faker](https://github.com/fzaninotto/Faker) is a PHP library that generates fake data for you.
+* [Fractal](https://github.com/thephpleague/fractal) type-cast your data, avoir db schema changes, allow embedding data
