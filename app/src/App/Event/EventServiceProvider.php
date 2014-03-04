@@ -1,5 +1,5 @@
 <?php
-namespace App\Handler;
+namespace App\Event;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Config;
@@ -8,7 +8,7 @@ use Event;
 /**
  * HandlerServiceProvider service provider
  */
-class HandlerServiceProvider extends ServiceProvider
+class EventServiceProvider extends ServiceProvider
 {
 
 	/**
@@ -25,6 +25,6 @@ class HandlerServiceProvider extends ServiceProvider
 	 */
 	public function register()
 	{
-		Event::subscribe('App\Handler\UserEventHandler');
+		//
 	}
 }

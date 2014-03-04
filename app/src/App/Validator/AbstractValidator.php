@@ -5,31 +5,53 @@ use Validator;
 use App\Validator\Exceptions\ValidatorException;
 
 /**
+ * Class Validator
+ *
  * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
+ * @package App\Validator
  */
-abstract class AbstractValidator
+class Validator
 {
 
-	protected static $rulesForCreation;
+    /**
+     *
+     * @param array $input            
+     * @param array $rules            
+     *
+     * @throws ValidatorException
+     * @return boolean
+     */
+    public function validate($input, $rules)
+    {
+        // Create validator
+        $validator = Validator::make($input, $rules);
+        
+        if ($validator->fails()) {
+            throw new ValidatorException($validator);
+        }
+        
+        return true;
+    }
 
-	protected static $rulesForUpdate;
+    /**
+     * Is valid for creation ?
+     *
+     * @param array $input            
+     * @return bool
+     */
+    public function isValidForCreation($input)
+    {
+        return $this->validate($input, static::$rulesForCreation);
+    }
 
-	public function validate($input, $rules)
-	{
-		$validator = Validator::make($input, $rules);
-		
-		if ($validator->fails()) {
-			throw new ValidatorException($validator);
-		}
-	}
-
-	public function isValidForCreation($input)
-	{
-		$this->validate($input, static::$rulesForCreation);
-	}
-
-	public function isValidForUpdate($input)
-	{
-		$this->validate($input, static::$rulesForUpdate);
-	}
+    /**
+     * Is valid for update ?
+     *
+     * @param array $input            
+     * @return bool
+     */
+    public function isValidForUpdate($input)
+    {
+        return $this->validate($input, static::$rulesForUpdate);
+    }
 }

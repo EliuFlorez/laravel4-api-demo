@@ -1,38 +1,42 @@
 <?php
 namespace App\Validator\Exceptions;
 
+use Illuminate\Validation\Validator;
+
 /**
- * Validation exception
+ * Class ValidatorException
+ *
  * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
- * 
+ * @package App\Validator\Exceptions
  */
 class ValidatorException extends \Exception
 {
 
-	/**
-	 * Errors object.
-	 *
-	 * @var Laravel\Messages
-	 */
-	private $errors;
+    /**
+     *
+     * @var \Illuminate\Validation\Validator
+     */
+    protected $validator;
 
-	/**
-	 * Create a new validate exception instance.
-	 *
-	 * @param Validator $validator        	
-	 */
-	public function __construct($validator)
-	{
-		$this->validator = $validator;
-		
-		parent::__construct(null);
-	}
+    /**
+     * Create a new validate exception instance.
+     *
+     * @param Validator $validator            
+     */
+    public function __construct(Validator $validator)
+    {
+        $this->validator = $validator;
+        
+        parent::__construct(null);
+    }
 
-	/**
-	 * Get the validator object.
-	 */
-	public function getValidator()
-	{
-		return $this->validator;
-	}
+    /**
+     * Get the validator object.
+     *
+     * @return Validator
+     */
+    public function getValidator()
+    {
+        return $this->validator;
+    }
 }
