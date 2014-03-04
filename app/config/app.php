@@ -107,10 +107,9 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		
-		'App\Handler\HandlerServiceProvider',
+		'App\Event\EventServiceProvider',
 		'App\Http\HttpServiceProvider',
-		'App\Repository\RepositoryServiceProvider',
-		'App\Validator\ValidatorServiceProvider'
+		'App\Repository\RepositoryServiceProvider'
 
 	),
 
