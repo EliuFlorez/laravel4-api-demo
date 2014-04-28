@@ -10,6 +10,7 @@ use Log;
 /**
  * Class UserEventHandler
  * @package App\Event\Handler
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 class UserEventHandler
 {
