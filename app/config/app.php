@@ -108,8 +108,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		
 		'App\Event\EventServiceProvider',
-		'App\Http\HttpServiceProvider',
-		'App\Repository\RepositoryServiceProvider'
+		'App\Repository\RepositoryServiceProvider',
+        'EllipseSynergie\ApiResponse\Laravel\ResponseServiceProvider'
 
 	),
 
