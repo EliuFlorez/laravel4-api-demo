@@ -9,7 +9,8 @@
         "league/fractal": "~0.7",
         "itsgoingd/clockwork": "~1.5",
         "ellipsesynergie/api-response": "~0.2",
-        "lucadegasperi/oauth2-server-laravel": "~1.0"
+        "lucadegasperi/oauth2-server-laravel": "~1.0",
+        "daylerees/container-debug": "dev-master"
     },
     "authors": [
         {

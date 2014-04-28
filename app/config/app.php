@@ -111,6 +111,7 @@ return array(
 		'App\Repository\RepositoryServiceProvider',
         'EllipseSynergie\ApiResponse\Laravel\ResponseServiceProvider',
         'LucaDegasperi\OAuth2Server\OAuth2ServerServiceProvider',
+        'DayleRees\ContainerDebug\ServiceProvider'
 
 	),
 
