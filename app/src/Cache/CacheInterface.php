@@ -5,6 +5,7 @@ namespace App\Cache;
 /**
  * Interface CacheInterface
  * @package App\Cache
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 interface CacheInterface
 {

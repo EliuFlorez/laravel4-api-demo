@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class AbstractRepository
  * @package App\Eloquent
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 abstract class AbstractRepository implements RepositoryInterface
 {

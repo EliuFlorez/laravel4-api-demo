@@ -5,6 +5,7 @@ namespace App\Event;
 /**
  * Interface EventInterface
  * @package App\Event
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 interface EventInterface
 {

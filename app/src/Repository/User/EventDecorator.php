@@ -8,7 +8,7 @@ use App\Repository\CrudableInterface;
 /**
  * Class EventDecorator
  * @package App\Repository\User
- * author Maxime Beaudoin <firalabs@gmail.com>
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 class EventDecorator extends AbstractEventDecorator implements CrudableInterface
 {

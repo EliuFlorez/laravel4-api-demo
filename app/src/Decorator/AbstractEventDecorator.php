@@ -7,6 +7,7 @@ use Illuminate\Events\Dispatcher;
 /**
  * Class AbstractEventDecorator
  * @package App\Decorator
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 abstract class AbstractEventDecorator extends AbstractDecorator
 {

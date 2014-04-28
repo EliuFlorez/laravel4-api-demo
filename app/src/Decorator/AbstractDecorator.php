@@ -5,6 +5,7 @@ namespace App\Decorator;
 /**
  * Class AbstractDecorator
  * @package App\Decorator
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 abstract class AbstractDecorator
 {

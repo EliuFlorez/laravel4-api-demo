@@ -7,6 +7,7 @@ use Illuminate\Events\Dispatcher;
 /**
  * Class LaravelEvent
  * @package App\Event
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 class LaravelEvent implements EventInterface
 {

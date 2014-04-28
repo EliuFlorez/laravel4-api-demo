@@ -11,7 +11,7 @@ use App\Repository\PaginableInterface;
 /**
  * Class EloquentUserRepository
  * @package App\Repository\User
- * author Maxime Beaudoin <firalabs@gmail.com>
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 class EloquentUserRepository extends AbstractRepository implements UserRepository, CrudableInterface, PaginableInterface
 {

@@ -8,7 +8,9 @@ use App\Repository\User\EventDecorator;
 use Event;
 
 /**
- * RepositoryServiceProvider service provider
+ * Class RepositoryServiceProvider
+ * @package App\Repository
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 class RepositoryServiceProvider extends ServiceProvider
 {

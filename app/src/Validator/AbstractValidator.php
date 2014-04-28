@@ -1,22 +1,22 @@
 <?php
 namespace App\Validator;
 
-use Validator;
+use Validator as V;
 use App\Validator\Exceptions\ValidatorException;
 
 /**
  * Class Validator
  *
- * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  * @package App\Validator
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 class Validator
 {
 
     /**
      *
-     * @param array $input            
-     * @param array $rules            
+     * @param array $input
+     * @param array $rules
      *
      * @throws ValidatorException
      * @return boolean
@@ -24,19 +24,19 @@ class Validator
     public function validate($input, $rules)
     {
         // Create validator
-        $validator = Validator::make($input, $rules);
-        
+        $validator = V::make($input, $rules);
+
         if ($validator->fails()) {
             throw new ValidatorException($validator);
         }
-        
+
         return true;
     }
 
     /**
      * Is valid for creation ?
      *
-     * @param array $input            
+     * @param array $input
      * @return bool
      */
     public function isValidForCreation($input)
@@ -47,7 +47,7 @@ class Validator
     /**
      * Is valid for update ?
      *
-     * @param array $input            
+     * @param array $input
      * @return bool
      */
     public function isValidForUpdate($input)

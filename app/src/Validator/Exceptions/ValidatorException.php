@@ -6,8 +6,8 @@ use Illuminate\Validation\Validator;
 /**
  * Class ValidatorException
  *
- * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  * @package App\Validator\Exceptions
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 class ValidatorException extends \Exception
 {
@@ -21,12 +21,12 @@ class ValidatorException extends \Exception
     /**
      * Create a new validate exception instance.
      *
-     * @param Validator $validator            
+     * @param Validator $validator
      */
     public function __construct(Validator $validator)
     {
         $this->validator = $validator;
-        
+
         parent::__construct(null);
     }
 

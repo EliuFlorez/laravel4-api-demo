@@ -7,6 +7,7 @@ use Illuminate\Cache\CacheManager;
 /**
  * Class LaravelCache
  * @package App\Cache
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 class LaravelCache implements CacheInterface
 {

@@ -5,6 +5,7 @@ namespace App\Eloquent;
 /**
  * Class PaginableTrait
  * @package App\Eloquent
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 trait PaginableTrait
 {

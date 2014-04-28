@@ -7,6 +7,7 @@ use App\Cache\CacheInterface;
 /**
  * Class AbstractCacheDecorator
  * @package App\Decorator
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 abstract class AbstractCacheDecorator extends AbstractDecorator
 {

@@ -7,6 +7,7 @@ use App\Repository\Exceptions\ModelNotFoundException;
 /**
  * Class CrudableTrait
  * @package App\Eloquent
+ * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
 trait CrudableTrait
 {
