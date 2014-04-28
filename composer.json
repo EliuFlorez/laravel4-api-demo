@@ -8,7 +8,8 @@
         "fzaninotto/faker": "~1.3",
         "league/fractal": "~0.7",
         "itsgoingd/clockwork": "~1.5",
-        "ellipsesynergie/api-response": "~0.2"
+        "ellipsesynergie/api-response": "~0.2",
+        "lucadegasperi/oauth2-server-laravel": "~1.0"
     },
     "autoload": {
         "classmap": [
