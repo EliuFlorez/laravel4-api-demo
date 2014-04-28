@@ -11,6 +11,18 @@
         "ellipsesynergie/api-response": "~0.2",
         "lucadegasperi/oauth2-server-laravel": "~1.0"
     },
+    "authors": [
+        {
+            "name": "Maxime Beaudoin",
+            "email": "maxime.beaudoin@ellipse-synergie.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Dominic Martineau",
+            "email": "dominic.martineau@ellipse-synergie.com",
+            "role": "Developer"
+        }
+    ],
     "autoload": {
         "classmap": [
             "app/commands",
