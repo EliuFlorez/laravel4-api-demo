@@ -2,14 +2,14 @@
 
 namespace App\Repository\User;
 
-use App\Decorator\AbstractCacheDecorator;
+use App\Decorator\AbstractValidatorDecorator;
 
 /**
- * Class EventDecorator
+ * Class ValidatorDecorator
  * @package App\Repository\User
- * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
+ * author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
-class CacheDecorator extends AbstractCacheDecorator implements UserRepository
+class ValidatorDecorator extends AbstractValidatorDecorator implements UserRepository
 {
     /**
      * Generate password reset code
@@ -20,7 +20,10 @@ class CacheDecorator extends AbstractCacheDecorator implements UserRepository
      */
     public function generateResetPasswordCode($email, $redirect_url)
     {
+        $this->validator->isValidForgotPassword(compact('email', 'redirect_url'));
+
         return $this->repository->generateResetPasswordCode($email, $redirect_url);
+
     }
 
     /**
@@ -34,6 +37,9 @@ class CacheDecorator extends AbstractCacheDecorator implements UserRepository
      */
     public function resetPassword($email, $password, $resetPasswordCode)
     {
+        $this->validator->isValidResetPassword(compact('email', 'password', 'resetPasswordCode'));
+
         return $this->repository->resetPassword($email, $password, $resetPasswordCode);
     }
+
 }

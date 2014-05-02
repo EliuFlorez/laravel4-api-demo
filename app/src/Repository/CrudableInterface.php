@@ -2,6 +2,9 @@
 
 namespace App\Repository;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+
 /**
  * Interface CrudableInterface
  * @package App\Repository
@@ -9,27 +12,11 @@ namespace App\Repository;
  */
 interface CrudableInterface
 {
-
-    /**
-     * Find a single entity
-     *
-     * @param int $id
-     * @param array $with
-     */
-    public function find($id, array $with = array());
-
-    /**
-     * Find multiple entities
-     *
-     * @param array $ids
-     * @return \Illuminate\Support\Collection
-     */
-    public function findByIds(array $ids);
-
     /**
      * Create a new entity
      *
      * @param array $input
+     * @return Model
      */
     public function create(array $input);
 
@@ -38,6 +25,7 @@ interface CrudableInterface
      *
      * @param int $id
      * @param array $input
+     * @return Model
      */
     public function update($id, array $input);
 
@@ -45,7 +33,7 @@ interface CrudableInterface
      * Delete an existing entity
      *
      * @param int $id
-     * @return boolean
+     * @return Model
      */
     public function delete($id);
 
@@ -53,7 +41,7 @@ interface CrudableInterface
      * Delete multiple entities
      *
      * @param array $ids
-     * @return boolean
+     * @return Collection
      */
     public function deleteByIds($ids);
 
@@ -61,7 +49,7 @@ interface CrudableInterface
      * Restore a soft deleted entity
      *
      * @param int $id
-     * @return boolean
+     * @return Model
      */
     public function restore($id);
 
@@ -69,7 +57,7 @@ interface CrudableInterface
      * Restore multiple entities
      *
      * @param array $ids
-     * @return int
+     * @return Collection
      */
     public function restoreByIds($ids);
 

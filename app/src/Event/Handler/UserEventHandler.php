@@ -1,94 +1,128 @@
 <?php
-
 namespace App\Event\Handler;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Events\Dispatcher;
-use App\Repository\UserRepository;
-use Event;
+use Illuminate\Support\Collection;
 use Log;
+use Mail;
+use App\Repository\User\User;
 
 /**
  * Class UserEventHandler
- * @package App\Event\Handler
+ * @package App\Event
  * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
-class UserEventHandler
+class UserEventHandler extends AbstractEventHandler implements EventInterface
 {
-
     /**
-     * @var \Illuminate\Events\Dispatcher
+     * The resource name
+     *
+     * @var string
      */
-    public $events;
+    protected $resource = 'user';
 
     /**
      * Register the listeners for the subscriber.
      *
-     * @param  \Illuminate\Events\Dispatcher $events
+     * @param \Illuminate\Events\Dispatcher $events
      * @return array
      */
     public function subscribe(Dispatcher $events)
     {
-        $this->events = $events;
+        parent::subscribe($events);
 
-        $events->listen('user.*', '\App\Event\Handler\UserEventHandler@onUserEvents');
-        $events->listen('user.create', '\App\Event\Handler\UserEventHandler@onUserCreate');
-        $events->listen('user.update', '\App\Event\Handler\UserEventHandler@onUserUpdate');
-        $events->listen('user.delete', '\App\Event\Handler\UserEventHandler@onUserDelete');
-        $events->listen('user.restore', '\App\Event\Handler\UserEventHandler@onUserRestore');
+        //Add user event
+        $events->listen('user.forgot.password', 'App\Event\Handler\UserEventHandler@onForgotPassword');
+        $events->listen('user.reset.password', 'App\Event\Handler\UserEventHandler@onResetPassword');
     }
 
     /**
-     * Handle user create events.
+     * Handle create events.
      *
-     * @param UserRepository $user
+     * @param Model $resource
      */
-    public function onUserCreate(UserRepository $user)
+    public function onCreate(Model $resource)
     {
-        //
+        // TODO: Implement onCreate() method.
     }
 
     /**
-     * Handle user update events.
+     * Handle update events.
      *
-     * @param UserRepository $user
+     * @param Model $resource
      */
-    public function onUserUpdate(UserRepository $user)
+    public function onUpdate(Model $resource)
     {
-        //
+        // TODO: Implement onUpdate() method.
     }
 
     /**
-     * Handle user destroy events.
-     *
-     * @param UserRepository $user
+     * Handle delete events.
      */
-    public function onUserDelete(UserRepository $user)
+    public function onDelete(Model $resource)
     {
-        //
+        // TODO: Implement onDelete() method.
     }
 
     /**
-     * Handle user restore events.
-     *
-     * @param UserRepository $user
+     * Handle delete multiple resource events.
      */
-    public function onUserRestore(UserRepository $user)
+    public function onDeleteMultiple(Collection $resources)
     {
-        //
+        // TODO: Implement onDeleteMultiple() method.
     }
 
     /**
-     * Handle generic events
-     *
-     * @param UserRepository $user
+     * Handle restore events.
      */
-    public function onUserEvents(UserRepository $user)
+    public function onRestore(Model $resource)
     {
-        //
-        Log::info('[Event fired "' . Event::firing() . '"]');
-
-        //
-        Log::info(json_encode($user));
+        // TODO: Implement onRestore() method.
     }
 
+    /**
+     * Handle restore multiple resource events.
+     */
+    public function onRestoreMultiple(Collection $resources)
+    {
+        // TODO: Implement onRestoreMultiple() method.
+    }
+
+    /**
+     * Handle user forgot password events.
+     *
+     * @param User $user
+     * @param string $redirectUrl
+     */
+    public function onForgotPassword(Model $resource, $redirectUrl)
+    {
+        //
+        Log::info('Push the forgot password mail to the queue');
+
+        //Create email data
+        $data = array(
+            'email' => $resource->email,
+            'key' => $resource->reset_password_code,
+            'redirect_url' => $redirectUrl
+        );
+
+        // Now you can send this code to your user via email for example.
+        Mail::queue('emails.auth.reminder', $data, function ($message) use ($resource) {
+
+            //Build the message
+            $message->to($resource->email, $resource->name)
+                ->subject('Renouvellement du mot de passe');
+        });
+    }
+
+    /**
+     * Handle reset password events.
+     *
+     * @param User $user
+     */
+    public function onResetPassword(User $user)
+    {
+        // TODO: Implement onRestoreMultiple() method.
+    }
 }

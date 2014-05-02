@@ -2,10 +2,18 @@
 namespace App\Repository;
 
 use Illuminate\Support\ServiceProvider;
-use App\Repository\User\EloquentUserModel;
+use App\Repository\Account\Account;
+use App\Repository\Account\EloquentAccountRepository;
+use App\Repository\Account\EventDecorator as AccountEventDecorator;
+use App\Repository\User\User;
 use App\Repository\User\EloquentUserRepository;
-use App\Repository\User\EventDecorator;
-use Event;
+use App\Repository\User\EventDecorator as UserEventDecorator;
+
+use App\Repository\Account\ValidatorDecorator as AccountValidatorDecorator;
+use App\Repository\User\ValidatorDecorator as UserValidatorDecorator;
+
+use App\Validator\AccountValidator;
+use App\Validator\UserValidator;
 
 /**
  * Class RepositoryServiceProvider
@@ -27,7 +35,32 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerAccountRepository();
         $this->registerUserRepository();
+    }
+
+    /**
+     * Register Account Repository
+     */
+    public function registerAccountRepository()
+    {
+        // Register a single instance into the app container
+        $this->app['repository.account'] = $this->app->share(function ($app) {
+
+            //Instantiate the resource repository
+            $repository = new EloquentAccountRepository(new Account());
+
+            //Instantiate the validator
+            $validator = new AccountValidatorDecorator($repository, new AccountValidator());
+
+            //Return the latest decorator instance
+            return new AccountEventDecorator($validator, $app['events']);
+        });
+
+        //
+        $this->app->bind('App\Repository\Account\AccountRepository', function ($app) {
+            return $app['repository.account'];
+        });
     }
 
     /**
@@ -38,16 +71,17 @@ class RepositoryServiceProvider extends ServiceProvider
         // Register a single instance into the app container
         $this->app['repository.user'] = $this->app->share(function ($app) {
 
-            //Instantiate the league repository
-            $repository = new EloquentUserRepository(new EloquentUserModel());
+            //Instantiate the resource repository
+            $repository = new EloquentUserRepository(new User());
+
+            //Instantiate the validator
+            $validator = new UserValidatorDecorator($repository, new UserValidator());
 
             //Return the latest decorator instance
-            return new EventDecorator($repository, $app['events']);
+            return new UserEventDecorator($validator, $app['events']);
         });
 
-        // When we want to create a new UserRepository, always refer to the shared instance
-        // We have do this for performance reason because we don't to instantiate a new repository evert time
-        // For now, we can't think this will cause any unwanted behavior
+        //
         $this->app->bind('App\Repository\User\UserRepository', function ($app) {
             return $app['repository.user'];
         });

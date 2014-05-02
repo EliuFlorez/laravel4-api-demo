@@ -5,7 +5,6 @@ use Illuminate\Validation\Validator;
 
 /**
  * Class ValidatorException
- *
  * @package App\Validator\Exceptions
  * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */

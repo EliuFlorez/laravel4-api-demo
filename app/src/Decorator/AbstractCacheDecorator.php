@@ -12,7 +12,7 @@ use App\Cache\CacheInterface;
 abstract class AbstractCacheDecorator extends AbstractDecorator
 {
     /**
-     * @var \App\Repository\RepositoryInterface
+     * @var mixed
      */
     protected $repository;
 
@@ -20,13 +20,6 @@ abstract class AbstractCacheDecorator extends AbstractDecorator
      * @var CacheInterface
      */
     protected $cache;
-
-    /**
-     * The resource name
-     *
-     * @var string
-     */
-    protected $resource;
 
     /**
      * @param $repository

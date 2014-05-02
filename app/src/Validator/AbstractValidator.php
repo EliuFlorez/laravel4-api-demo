@@ -1,17 +1,46 @@
 <?php
 namespace App\Validator;
 
-use Validator as V;
+use Validator;
 use App\Validator\Exceptions\ValidatorException;
 
 /**
- * Class Validator
- *
+ * Class AbstractValidator
  * @package App\Validator
  * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
-class Validator
+class AbstractValidator
 {
+
+    /**
+     * @var array
+     */
+    static $rulesForCreation = [];
+
+    /**
+     * @var array
+     */
+    static $rulesForUpdate = [];
+
+    /**
+     * @var array
+     */
+    static $rulesForDelete = [];
+
+    /**
+     * @var array
+     */
+    static $rulesForManyDelete = [];
+
+    /**
+     * @var array
+     */
+    static $rulesForRestore = [];
+
+    /**
+     * @var array
+     */
+    static $rulesForManyRestore = [];
 
     /**
      *
@@ -24,7 +53,7 @@ class Validator
     public function validate($input, $rules)
     {
         // Create validator
-        $validator = V::make($input, $rules);
+        $validator = Validator::make($input, $rules);
 
         if ($validator->fails()) {
             throw new ValidatorException($validator);
@@ -53,5 +82,49 @@ class Validator
     public function isValidForUpdate($input)
     {
         return $this->validate($input, static::$rulesForUpdate);
+    }
+
+    /**
+     * Is valid for delete ?
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function isValidForDelete($id)
+    {
+        return $this->validate($id, static::$rulesForDelete);
+    }
+
+    /**
+     * Is valid for many delete ?
+     *
+     * @param array $id
+     * @return bool
+     */
+    public function isValidForManyDelete($ids)
+    {
+        return $this->validate($ids, static::$rulesForManyDelete);
+    }
+
+    /**
+     * Is valid for restore ?
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function isValidForRestore($id)
+    {
+        return $this->validate($id, static::$rulesForRestore);
+    }
+
+    /**
+     * Is valid for many restore ?
+     *
+     * @param array $id
+     * @return bool
+     */
+    public function isValidForManyRestore($ids)
+    {
+        return $this->validate($ids, static::$rulesForManyRestore);
     }
 }

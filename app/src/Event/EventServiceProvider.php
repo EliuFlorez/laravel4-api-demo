@@ -17,7 +17,8 @@ class EventServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //$this->app['events']->subscribe('App\Event\Handler\UserEventHandler');
+        $this->app['events']->subscribe('App\Event\Handler\AccountEventHandler');
+        $this->app['events']->subscribe('App\Event\Handler\UserEventHandler');
     }
 
 }

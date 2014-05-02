@@ -2,6 +2,7 @@
 
 namespace App\Decorator;
 
+use App\Repository\CrudableInterface;
 use Illuminate\Events\Dispatcher;
 
 /**
@@ -9,7 +10,7 @@ use Illuminate\Events\Dispatcher;
  * @package App\Decorator
  * @author Maxime Beaudoin <maxime.beaudoin@ellipse-synergie.com>
  */
-abstract class AbstractEventDecorator extends AbstractDecorator
+abstract class AbstractEventDecorator extends AbstractDecorator implements CrudableInterface
 {
     /**
      * @var \App\Repository\RepositoryInterface
@@ -36,22 +37,6 @@ abstract class AbstractEventDecorator extends AbstractDecorator
     {
         $this->repository = $repository;
         $this->event = $event;
-    }
-
-
-    /**
-     * Find a single entity
-     *
-     * @param int $id
-     * @param array $with
-     */
-    public function find($id, array $with = array())
-    {
-        $resource = $this->repository->find($id, $with);
-
-        $this->event->fire($this->resource . '.find', $resource);
-
-        return $resource;
     }
 
     /**
@@ -111,21 +96,6 @@ abstract class AbstractEventDecorator extends AbstractDecorator
         $this->event->fire($this->resource . '.restore', $resource);
 
         return $resource;
-    }
-
-    /**
-     * Find multiple entities
-     *
-     * @param array $ids
-     * @return \Illuminate\Support\Collection
-     */
-    public function findByIds(array $ids)
-    {
-        $resources = $this->repository->findByIds($ids);
-
-        $this->event->fire($this->resource . '.find.multiple', $resources);
-
-        return $resources;
     }
 
     /**

@@ -3,6 +3,8 @@
 namespace App\Eloquent;
 
 use App\Repository\Exceptions\ModelNotFoundException;
+use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class CrudableTrait
@@ -15,6 +17,7 @@ trait CrudableTrait
      * Create a new entity
      *
      * @param array $data
+     * @return Model
      */
     public function create(array $input)
     {
@@ -26,6 +29,7 @@ trait CrudableTrait
      *
      * @param int $id
      * @param array $input
+     * @return Model
      */
     public function update($id, array $input)
     {
@@ -46,7 +50,7 @@ trait CrudableTrait
      * Delete an existing entity
      *
      * @param int $id
-     * @return boolean
+     * @return Model
      */
     public function delete($id)
     {
@@ -66,18 +70,24 @@ trait CrudableTrait
      * Delete multiple entities
      *
      * @param array $ids
-     * @return boolean
+     * @return Collection
      */
     public function deleteByIds($ids)
     {
-        return $this->model->destroy($ids);
+        $resources = $this->model->whereIn($this->model->getKeyName(), $ids)->get();
+
+        foreach ($resources as $resource) {
+            $resource->delete();
+        }
+
+        return $resources;
     }
 
     /**
      * Restore a soft deleted entity
      *
      * @param int $id
-     * @return boolean
+     * @return Model
      */
     public function restore($id)
     {
@@ -97,7 +107,7 @@ trait CrudableTrait
      * Restore multiple entities
      *
      * @param array $ids
-     * @return int
+     * @return Collection
      */
     public function restoreByIds($ids)
     {
@@ -107,7 +117,7 @@ trait CrudableTrait
             $resource->restore();
         }
 
-        return $resources->count();
+        return $resources;
     }
 
 }
